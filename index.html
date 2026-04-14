@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio pribadi - Desain modern, unik, dan berkualitas tinggi dengan banyak menu utama">
+    <title>Aria Santoso | Full Stack Designer & Developer</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Font (Inter + Space Grotesk untuk nuansa unik) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent: #c026d3;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Dark theme premium dengan gradient neon */
+        .bg-primary {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1133 100%);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 20px rgb(192 38 211), 0 0 40px rgb(192 38 211);
+        }
+        
+        /* Navbar glow */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background-color: #c026d3;
+            box-shadow: 0 0 10px #c026d3;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero particle background */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.15;
+        }
+        
+        /* Scroll animation */
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Card hover effect premium */
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(192 38 211 / 0.3);
+        }
+        
+        /* Mobile menu animation */
+        .mobile-menu {
+            animation: slideDown 0.4s ease forwards;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-primary text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-purple-500/50">
+                    👾
+                </div>
+                <h1 class="heading-font text-2xl tracking-tighter font-semibold neon-text">Aria Santoso</h1>
+            </div>
+            
+            <!-- Menu Desktop - BANYAK OPSI -->
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" class="nav-link hover:text-purple-400">Beranda</a>
+                <a href="#about" class="nav-link hover:text-purple-400">Tentang Saya</a>
+                <a href="#skills" class="nav-link hover:text-purple-400">Keahlian</a>
+                <a href="#services" class="nav-link hover:text-purple-400">Layanan</a>
+                <a href="#projects" class="nav-link hover:text-purple-400">Proyek</a>
+                <a href="#experience" class="nav-link hover:text-purple-400">Pengalaman</a>
+                <a href="#blog" class="nav-link hover:text-purple-400">Blog</a>
+                <a href="#testimonials" class="nav-link hover:text-purple-400">Testimoni</a>
+                <a href="#contact" class="nav-link hover:text-purple-400">Kontak</a>
+            </div>
+            
+            <!-- Action buttons -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="#contact" 
+                   class="px-6 py-3 bg-white text-purple-600 hover:bg-purple-600 hover:text-white rounded-3xl font-semibold flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Hubungi Saya
+                </a>
+                
+                <!-- Download CV -->
+                <a href="#" onclick="downloadCV()" 
+                   class="px-6 py-3 border border-white/30 hover:border-purple-400 rounded-3xl font-semibold flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-download"></i>
+                    Unduh CV
+                </a>
+                
+                <!-- Dark/Light toggle (unik) -->
+                <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center text-xl rounded-2xl hover:bg-white/10">
+                    <i class="fa-solid fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+            
+            <!-- Hamburger -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-3xl">
+                <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden glass border-t border-white/10 px-6 py-6 mobile-menu">
+            <div class="flex flex-col gap-6 text-lg font-medium">
+                <a href="#home" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-house w-5"></i> Beranda</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-user w-5"></i> Tentang Saya</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-laptop-code w-5"></i> Keahlian</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-briefcase w-5"></i> Layanan</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-folder-open w-5"></i> Proyek</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-timeline w-5"></i> Pengalaman</a>
+                <a href="#blog" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-newspaper w-5"></i> Blog</a>
+                <a href="#testimonials" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-quote-left w-5"></i> Testimoni</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="flex items-center gap-3"><i class="fa-solid fa-envelope w-5"></i> Kontak</a>
+                
+                <div class="pt-6 border-t border-white/10 flex flex-col gap-4">
+                    <a href="#contact" onclick="toggleMobileMenu()" 
+                       class="w-full py-4 bg-purple-600 text-center rounded-3xl font-semibold">Hubungi Saya Sekarang</a>
+                    <a href="#" onclick="downloadCV();toggleMobileMenu()" 
+                       class="w-full py-4 border border-white/30 text-center rounded-3xl font-semibold">Unduh CV</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="min-h-screen flex items-center relative bg-primary pt-20">
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 glass rounded-3xl text-sm font-medium">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    Tersedia untuk freelance &amp; proyek baru
+                </div>
+                
+                <h1 class="text-6xl lg:text-7xl leading-none heading-font font-semibold tracking-tighter neon-text">
+                    Halo, saya<br>Aria Santoso
+                </h1>
+                
+                <p class="text-3xl text-purple-300">Full Stack Designer &amp; Developer</p>
+                
+                <p class="text-lg text-gray-400 max-w-md">
+                    Membuat pengalaman digital yang <span class="text-purple-400">unik, premium, dan berkesan</span>. 
+                    7+ tahun menciptakan website &amp; aplikasi yang memenangkan hati pengguna.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" 
+                       class="px-8 py-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl font-semibold text-lg flex items-center gap-3 hover:scale-105">
+                        Lihat Proyek Saya
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    
+                    <a href="#contact" 
+                       class="px-8 py-5 border-2 border-white/30 hover:border-purple-400 rounded-3xl font-semibold text-lg flex items-center gap-3">
+                        Mari Berkolaborasi
+                    </a>
+                </div>
+                
+                <!-- Trust signals -->
+                <div class="flex items-center gap-8 pt-8">
+                    <div>
+                        <div class="flex -space-x-4">
+                            <div class="w-8 h-8 bg-purple-500 rounded-2xl flex items-center justify-center text-xs">F</div>
+                            <div class="w-8 h-8 bg-pink-500 rounded-2xl flex items-center justify-center text-xs">D</div>
+                            <div class="w-8 h-8 bg-cyan-500 rounded-2xl flex items-center justify-center text-xs">A</div>
+                        </div>
+                    </div>
+                    <p class="text-sm leading-tight">
+                        Telah dipercaya oleh<br>
+                        <span class="font-semibold">Figma • Dicoding • Tokopedia • 40+ klien</span>
+                    </p>
+                </div>
+                
+                <div class="flex gap-6 text-4xl">
+                    <a href="#" class="hover:text-purple-400"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-purple-400"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-purple-400"><i class="fa-brands fa-behance"></i></a>
+                    <a href="#" class="hover:text-purple-400"><i class="fa-brands fa-dribbble"></i></a>
+                </div>
+            </div>
+            
+            <!-- Visual Hero -->
+            <div class="relative">
+                <div class="absolute -inset-10 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-[4rem] rotate-6 blur-3xl"></div>
+                <div class="glass rounded-3xl p-4 border border-white/10 relative">
+                    <img src="https://picsum.photos/id/1015/800/900" 
+                         alt="Aria Santoso - Portrait"
+                         class="rounded-3xl w-full aspect-[4/5] object-cover shadow-2xl">
+                    <div class="absolute bottom-8 left-8 bg-black/70 px-6 py-3 rounded-3xl flex items-center gap-3">
+                        <div class="text-4xl">🚀</div>
+                        <div>
+                            <p class="font-semibold">Currently working on</p>
+                            <p class="text-purple-400 text-sm">AI-Powered Design System 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
+            SCROLL UNTUK MENJELAJAHI
+            <i class="fa-solid fa-chevron-down animate-bounce text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section py-24 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-12 gap-16 items-center">
+                <div class="lg:col-span-5">
+                    <div class="sticky top-28">
+                        <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">01 / TENTANG SAYA</span>
+                        <h2 class="text-5xl heading-font leading-none mt-4">Saya menciptakan<br>digital experiences<br>yang <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">bercerita</span></h2>
+                        <p class="mt-8 text-gray-400 text-lg">Dari ide konsep hingga produk jadi, saya menggabungkan desain yang memukau dengan kode yang kuat.</p>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 space-y-8">
+                    <p class="text-xl leading-relaxed">
+                        Dengan lebih dari 7 tahun pengalaman di dunia kreatif dan teknologi, saya telah membantu startup dan perusahaan besar membangun produk digital yang tidak hanya cantik, tapi juga fungsional dan user-friendly.
+                    </p>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="glass p-6 rounded-3xl text-center">
+                            <div class="text-5xl font-semibold heading-font text-purple-400">87</div>
+                            <p class="mt-3">Proyek Selesai</p>
+                        </div>
+                        <div class="glass p-6 rounded-3xl text-center">
+                            <div class="text-5xl font-semibold heading-font text-purple-400">42</div>
+                            <p class="mt-3">Klien Puas</p>
+                        </div>
+                        <div class="glass p-6 rounded-3xl text-center">
+                            <div class="text-5xl font-semibold heading-font text-purple-400">14</div>
+                            <p class="mt-3">Negara</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">
+                        Saat ini berbasis di Jakarta, Indonesia. Saya suka kopi, hiking, dan memecahkan masalah desain yang kompleks dengan solusi sederhana dan elegan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section py-24 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">02 / KEAHLIAN</span>
+            <h2 class="text-5xl heading-font mt-4 mb-12">Tools &amp; Teknologi yang saya kuasai</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Skill item -->
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-brands fa-figma text-6xl mb-6 text-purple-400"></i>
+                    <h4 class="font-semibold text-xl">Figma</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[95%] bg-gradient-to-r from-purple-400 to-pink-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">95%</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-brands fa-react text-6xl mb-6 text-cyan-400"></i>
+                    <h4 class="font-semibold text-xl">React / Next.js</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[90%] bg-gradient-to-r from-cyan-400 to-blue-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">90%</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-brands fa-node-js text-6xl mb-6 text-green-400"></i>
+                    <h4 class="font-semibold text-xl">Node.js</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[85%] bg-gradient-to-r from-green-400 to-emerald-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">85%</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-solid fa-palette text-6xl mb-6 text-pink-400"></i>
+                    <h4 class="font-semibold text-xl">UI/UX Design</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[98%] bg-gradient-to-r from-pink-400 to-purple-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">98%</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-brands fa-tailwindcss text-6xl mb-6 text-sky-400"></i>
+                    <h4 class="font-semibold text-xl">Tailwind CSS</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[92%] bg-gradient-to-r from-sky-400 to-cyan-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">92%</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center hover:scale-105">
+                    <i class="fa-solid fa-cube text-6xl mb-6 text-orange-400"></i>
+                    <h4 class="font-semibold text-xl">3D &amp; Framer Motion</h4>
+                    <div class="h-2 bg-white/10 rounded-full mt-6 overflow-hidden">
+                        <div class="h-full w-[80%] bg-gradient-to-r from-orange-400 to-yellow-400"></div>
+                    </div>
+                    <p class="text-xs mt-2 text-right">80%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES / LAYANAN -->
+    <section id="services" class="section py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">03 / LAYANAN</span>
+            <h2 class="text-5xl heading-font mt-4 mb-12">Apa yang bisa saya bantu?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-10 rounded-3xl hover:ring-2 hover:ring-purple-400/30">
+                    <i class="fa-solid fa-laptop text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Website Premium</h3>
+                    <p class="text-gray-400">Landing page, website perusahaan, e-commerce, dan web app modern dengan performa tinggi.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Responsive &amp; SEO Optimized</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Animasi interaktif</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Integrasi API</li>
+                    </ul>
+                </div>
+                <div class="glass p-10 rounded-3xl hover:ring-2 hover:ring-purple-400/30">
+                    <i class="fa-solid fa-mobile-screen-button text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Mobile &amp; SaaS App</h3>
+                    <p class="text-gray-400">Aplikasi mobile native &amp; web-based yang user-friendly dengan fokus pada user experience terbaik.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> React Native / Flutter</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Dashboard analytics</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> AI integration</li>
+                    </ul>
+                </div>
+                <div class="glass p-10 rounded-3xl hover:ring-2 hover:ring-purple-400/30">
+                    <i class="fa-solid fa-palette text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Branding &amp; UI/UX</h3>
+                    <p class="text-gray-400">Desain sistem, branding lengkap, prototype interaktif, dan user research yang mendalam.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Design System</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Figma Prototype</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> User Testing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section py-24 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-baseline mb-12">
+                <div>
+                    <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">04 / PROYEK</span>
+                    <h2 class="text-5xl heading-font mt-4">Karya terbaik saya</h2>
+                </div>
+                <a href="#" class="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium">
+                    LIHAT SEMUA PROYEK 
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card glass rounded-3xl overflow-hidden">
+                    <img src="https://picsum.photos/id/1016/800/600" alt="Proyek 1" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <div class="flex justify-between text-xs mb-3">
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full">UI/UX • 2025</span>
+                            <span>Tokopedia</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold">NeonPay - Payment Gateway Modern</h3>
+                        <p class="text-gray-400 mt-3 line-clamp-3">Platform pembayaran digital dengan animasi 3D dan pengalaman checkout yang super cepat.</p>
+                        <div class="flex gap-2 mt-6">
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Next.js</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Framer Motion</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Stripe</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card glass rounded-3xl overflow-hidden">
+                    <img src="https://picsum.photos/id/201/800/600" alt="Proyek 2" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <div class="flex justify-between text-xs mb-3">
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full">Branding • 2025</span>
+                            <span>Startup Fashion</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold">Lumina — Brand Identity + Website</h3>
+                        <p class="text-gray-400 mt-3 line-clamp-3">Desain brand lengkap dan website e-commerce untuk fashion sustainable yang futuristik.</p>
+                        <div class="flex gap-2 mt-6">
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Figma</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Webflow</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">3D Render</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card glass rounded-3xl overflow-hidden">
+                    <img src="https://picsum.photos/id/1005/800/600" alt="Proyek 3" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <div class="flex justify-between text-xs mb-3">
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full">SaaS • 2024</span>
+                            <span>Dicoding Academy</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold">SkillForge — Learning Platform</h3>
+                        <p class="text-gray-400 mt-3 line-clamp-3">Platform belajar online dengan AI tutor dan progress tracking yang interaktif.</p>
+                        <div class="flex gap-2 mt-6">
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">React Native</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">Supabase</span>
+                            <span class="text-xs px-4 py-2 bg-white/10 rounded-3xl">AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">05 / PENGALAMAN</span>
+            <h2 class="text-5xl heading-font mt-4 mb-16">Perjalanan karir saya</h2>
+            
+            <div class="space-y-12 max-w-3xl">
+                <div class="flex gap-8">
+                    <div class="text-right w-32 shrink-0">
+                        <p class="font-mono text-purple-400">2024 – Sekarang</p>
+                        <p class="text-sm text-gray-400">Freelance &amp; Founder</p>
+                    </div>
+                    <div class="flex-1 border-l-2 border-purple-400 pl-8">
+                        <h4 class="text-2xl font-semibold">Aria Studio — Creative Director</h4>
+                        <p class="text-gray-400">Membantu 18 klien membangun brand digital premium dan produk SaaS.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="text-right w-32 shrink-0">
+                        <p class="font-mono text-purple-400">2022 – 2024</p>
+                        <p class="text-sm text-gray-400">Tokopedia</p>
+                    </div>
+                    <div class="flex-1 border-l-2 border-purple-400 pl-8">
+                        <h4 class="text-2xl font-semibold">Senior Product Designer</h4>
+                        <p class="text-gray-400">Mendesain ulang checkout flow yang meningkatkan konversi 43%.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="text-right w-32 shrink-0">
+                        <p class="font-mono text-purple-400">2020 – 2022</p>
+                        <p class="text-sm text-gray-400">Dicoding</p>
+                    </div>
+                    <div class="flex-1 border-l-2 border-purple-400 pl-8">
+                        <h4 class="text-2xl font-semibold">Lead UI Engineer</h4>
+                        <p class="text-gray-400">Membangun platform belajar yang digunakan oleh 500.000+ siswa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG TEASER -->
+    <section id="blog" class="section py-24 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">06 / BLOG</span>
+            <h2 class="text-5xl heading-font mt-4 mb-12">Pemikiran &amp; Artikel</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="#" class="block group">
+                    <div class="glass rounded-3xl overflow-hidden">
+                        <img src="https://picsum.photos/id/870/800/500" class="w-full h-52 object-cover group-hover:scale-105" alt="">
+                        <div class="p-6">
+                            <p class="text-xs text-purple-400">14 April 2026</p>
+                            <h4 class="font-semibold text-xl mt-2 group-hover:text-purple-400">Mengapa Glassmorphism masih relevan di tahun 2026</h4>
+                            <p class="text-sm text-gray-400 mt-4 line-clamp-3">Tren desain yang tidak pernah mati dan cara mengimplementasikannya dengan Tailwind + Framer Motion.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="block group">
+                    <div class="glass rounded-3xl overflow-hidden">
+                        <img src="https://picsum.photos/id/201/800/500" class="w-full h-52 object-cover group-hover:scale-105" alt="">
+                        <div class="p-6">
+                            <p class="text-xs text-purple-400">08 April 2026</p>
+                            <h4 class="font-semibold text-xl mt-2 group-hover:text-purple-400">Cara membangun AI Design Assistant sendiri</h4>
+                            <p class="text-sm text-gray-400 mt-4 line-clamp-3">Tutorial lengkap menggunakan Next.js + Grok API.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="block group">
+                    <div class="glass rounded-3xl overflow-hidden">
+                        <img src="https://picsum.photos/id/1005/800/500" class="w-full h-52 object-cover group-hover:scale-105" alt="">
+                        <div class="p-6">
+                            <p class="text-xs text-purple-400">01 April 2026</p>
+                            <h4 class="font-semibold text-xl mt-2 group-hover:text-purple-400">The future of portfolio websites</h4>
+                            <p class="text-sm text-gray-400 mt-4 line-clamp-3">Mengapa website portfolio harus interaktif dan punya personality.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">07 / TESTIMONI</span>
+            <h2 class="text-5xl heading-font mt-4 mb-12">Apa kata mereka</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-3xl">
+                    <p class="text-lg italic">"Aria berhasil mengubah ide kami menjadi produk yang benar-benar premium. Desainnya luar biasa dan konversi naik 3x!"</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/64/64/64" class="w-12 h-12 rounded-2xl object-cover" alt="">
+                        <div>
+                            <p class="font-semibold">Nadia Pratiwi</p>
+                            <p class="text-sm text-purple-400">CEO, Lumina Fashion</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <p class="text-lg italic">"Kerja sama dengan Aria adalah pengalaman terbaik. Kode bersih, desain tajam, dan selalu on-time."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/1009/64/64" class="w-12 h-12 rounded-2xl object-cover" alt="">
+                        <div>
+                            <p class="font-semibold">Rizki Ramadhan</p>
+                            <p class="text-sm text-purple-400">CTO, SkillForge</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <p class="text-lg italic">"Website baru kami terasa seperti produk Silicon Valley. Sangat puas!"</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/201/64/64" class="w-12 h-12 rounded-2xl object-cover" alt="">
+                        <div>
+                            <p class="font-semibold">Dian Sastrowardoyo</p>
+                            <p class="text-sm text-purple-400">Founder, GreenEarth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section py-24 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-12 gap-16">
+                <div class="lg:col-span-5">
+                    <span class="px-4 py-2 text-purple-400 text-sm font-mono tracking-[2px]">08 / KONTAK</span>
+                    <h2 class="text-5xl heading-font mt-6">Mari buat sesuatu yang luar biasa bersama</h2>
+                    <p class="mt-8 text-gray-400 text-lg">Saya selalu terbuka untuk diskusi proyek baru, kolaborasi, atau sekadar ngobrol kopi virtual.</p>
+                    
+                    <div class="mt-16 space-y-6">
+                        <div class="flex items-center gap-6">
+                            <i class="fa-solid fa-envelope text-3xl text-purple-400 w-12"></i>
+                            <div>
+                                <p class="text-sm text-gray-400">Email</p>
+                                <a href="mailto:aria@santoso.dev" class="text-xl font-medium">aria@santoso.dev</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <i class="fa-solid fa-phone text-3xl text-purple-400 w-12"></i>
+                            <div>
+                                <p class="text-sm text-gray-400">WhatsApp</p>
+                                <a href="https://wa.me/6281234567890" class="text-xl font-medium">+62 812-3456-7890</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <i class="fa-brands fa-linkedin text-3xl text-purple-400 w-12"></i>
+                            <div>
+                                <p class="text-sm text-gray-400">LinkedIn</p>
+                                <a href="#" class="text-xl font-medium">@ariasantoso</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 glass rounded-3xl p-10">
+                    <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-sm block mb-2">Nama Lengkap</label>
+                                <input type="text" id="name" required 
+                                       class="w-full bg-white/10 border border-white/20 focus:border-purple-400 rounded-2xl px-6 py-5 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-sm block mb-2">Email</label>
+                                <input type="email" id="email" required 
+                                       class="w-full bg-white/10 border border-white/20 focus:border-purple-400 rounded-2xl px-6 py-5 outline-none">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm block mb-2">Subjek</label>
+                            <input type="text" id="subject" required 
+                                   class="w-full bg-white/10 border border-white/20 focus:border-purple-400 rounded-2xl px-6 py-5 outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm block mb-2">Pesan Anda</label>
+                            <textarea id="message" rows="6" required 
+                                      class="w-full bg-white/10 border border-white/20 focus:border-purple-400 rounded-3xl px-6 py-5 outline-none resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit"
+                                class="w-full py-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl text-xl font-semibold flex items-center justify-center gap-3 hover:shadow-xl hover:shadow-purple-500/30">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            KIRIM PESAN
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+            <p>© 2026 Aria Santoso. Semua hak dilindungi.</p>
+            <p class="flex items-center gap-6">
+                <a href="#" class="hover:text-purple-400">Privacy</a>
+                <a href="#" class="hover:text-purple-400">Terms</a>
+                <a href="#" class="hover:text-purple-400">Sitemap</a>
+            </p>
+            <p class="text-purple-400 font-medium">Made with ❤️ &amp; Grok</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script initialization
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {},
+                        },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme(userConfig = {}) {
+                    return {
+                        ...this.defaultTheme(),
+                        ...userConfig,
+                    }
+                },
+                defaultTheme() {
+                    return {
+                        colors: {
+                            accent: '#c026d3',
+                        }
+                    }
+                },
+            }
+        }
+        
+        // Hero canvas particle effect (unik!)
+        function createParticles() {
+            const canvas = document.getElementById('hero-canvas')
+            const ctx = canvas.getContext('2d')
+            
+            let particles = []
+            
+            function resize() {
+                canvas.width = window.innerWidth
+                canvas.height = window.innerHeight
+            }
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width
+                    this.y = Math.random() * canvas.height
+                    this.size = Math.random() * 4 + 1
+                    this.speedX = Math.random() * 0.5 - 0.25
+                    this.speedY = Math.random() * 0.5 - 0.25
+                }
+                update() {
+                    this.x += this.speedX
+                    this.y += this.speedY
+                    
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
+                }
+                draw() {
+                    ctx.fillStyle = '#c026d3'
+                    ctx.beginPath()
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+                    ctx.fill()
+                }
+            }
+            
+            function init() {
+                particles = []
+                for (let i = 0; i < 120; i++) {
+                    particles.push(new Particle())
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update()
+                    particles[i].draw()
+                }
+                requestAnimationFrame(animate)
+            }
+            
+            window.addEventListener('resize', () => {
+                resize()
+                init()
+            })
+            
+            resize()
+            init()
+            animate()
+        }
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+        
+        // Form submit handler
+        function handleSubmit(e) {
+            e.preventDefault()
+            
+            const form = document.getElementById('contact-form')
+            const btn = form.querySelector('button')
+            
+            const originalText = btn.innerHTML
+            btn.innerHTML = `
+                <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            `
+            setTimeout(() => {
+                alert('✅ Pesan Anda telah terkirim! Terima kasih, Aria akan segera membalas.')
+                form.reset()
+                btn.innerHTML = originalText
+            }, 1800)
+        }
+        
+        // Download CV (dummy)
+        function downloadCV() {
+            const link = document.createElement('a')
+            link.href = 'https://via.placeholder.com/800x1200/6b21a8/ffffff?text=CV+Aria+Santoso+2026.pdf'
+            link.download = 'CV_Aria_Santoso.pdf'
+            link.click()
+            alert('📄 CV sedang diunduh... (Anda bisa ganti link dengan CV asli Anda)')
+        }
+        
+        // Simple theme toggle (light/dark)
+        function toggleTheme() {
+            const icon = document.getElementById('theme-icon')
+            if (document.documentElement.classList.contains('light')) {
+                document.documentElement.classList.remove('light')
+                icon.classList.replace('fa-sun', 'fa-moon')
+            } else {
+                document.documentElement.classList.add('light')
+                icon.classList.replace('fa-moon', 'fa-sun')
+                // In real case you would add light mode styles
+                console.log('%cLight mode activated (demo)', 'color:#c026d3;font-weight:bold')
+            }
+        }
+        
+        // Scroll animation trigger
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.section')
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                    }
+                })
+            }, { threshold: 0.15 })
+            
+            sections.forEach(section => observer.observe(section))
+        }
+        
+        // Active nav link
+        function highlightNav() {
+            const navLinks = document.querySelectorAll('nav a[href^="#"]')
+            
+            window.addEventListener('scroll', () => {
+                let current = ''
+                const sections = document.querySelectorAll('section[id]')
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop
+                    if (scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id')
+                    }
+                })
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('text-purple-400')
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('text-purple-400')
+                    }
+                })
+            })
+        }
+        
+        // Main initialization
+        window.onload = function() {
+            initializeTailwind()
+            createParticles()
+            animateOnScroll()
+            highlightNav()
+            
+            console.log('%c✅ Website Portfolio Aria Santoso siap digunakan! Desain premium, unik, responsif, dan lengkap dengan 9 menu utama + contact form interaktif.', 'color:#c026d3; font-family:Space Grotesk; font-size:14px')
+            console.log('Ganti foto, teks, dan link sesuai kebutuhan Anda. Semua sudah siap pakai!')
+        }
+    </script>
+</body>
+</html>
